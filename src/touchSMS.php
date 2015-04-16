@@ -10,7 +10,6 @@ namespace TouchSMS\TouchSMS;
  *
  * @author touchSMS <https://github.com/touchsms>
  * @version 1.0
- *
  */
 class touchSMS {
 
