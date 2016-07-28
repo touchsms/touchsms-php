@@ -1,6 +1,6 @@
 <?php
 
-namespace TouchSMS\TouchSMS;
+namespace touchSMS;
 
 /**
  * touchSMS API class
@@ -17,6 +17,7 @@ class touchSMS {
      * The API base URL
      */
     const API_URL = 'https://platform.touchsms.com.au/rest/v1/';
+    const SANDBOX_API_URL = 'http://sandbox.touchsms.com.au/rest/v1/';
 
     /**
      * The API Unique Id
@@ -32,6 +33,7 @@ class touchSMS {
      */
     private $_uniquePassword;
 
+    private $_sandbox;
     private $_obj;
     private $_response;
     private $_notice;
@@ -44,9 +46,10 @@ class touchSMS {
      *
      * @return void
      */
-    public function __construct($uniqueId, $uniquePassword) {
+    public function __construct($uniqueId, $uniquePassword, $sandbox = false) {
         $this->_unqiueId = $uniqueId;
         $this->_uniquePassword = $uniquePassword;
+        $this->_sandbox = $sandbox;
     }
 
     /**
@@ -104,7 +107,13 @@ class touchSMS {
             $paramString = http_build_query($params);
         }
 
-        $apiCall = self::API_URL . $function . (('GET' === $method) ? $paramString : null);
+        if ($this->_sandbox) {
+            $apiUrl = self::SANDBOX_API_URL;
+        } else {
+            $apiUrl = self::API_URL;
+        }
+
+        $apiCall = $apiUrl . $function . (('GET' === $method) ? $paramString : null);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $apiCall);

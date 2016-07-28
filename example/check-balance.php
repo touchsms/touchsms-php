@@ -1,7 +1,7 @@
 <?php
     require '../src/touchSMS.php';
 
-    use TouchSMS\TouchSMS\touchSMS;
+    use touchSMS\touchSMS;
 
     $touchSMS = new touchSMS('YOUR_API_ID', 'YOUR_API_PASSWORD');
 
