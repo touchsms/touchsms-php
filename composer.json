@@ -4,7 +4,8 @@
     "description": "An easy-to-use PHP Class for accessing touchSMS API.",
     "keywords": ["touchsms", "sms", "sms gateway", "mobile", "cellphone"],
     "homepage": "https://github.com/touchsms/touchsms-PHP-API",
-    "license": "GNU",
+    "license": "MIT",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "touchSMS",

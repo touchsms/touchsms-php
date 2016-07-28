@@ -1,5 +1,8 @@
 # touchSMS Gateway Class
 
+[![Build Status](https://travis-ci.org/touchsms/touchsms-PHP-API.svg?branch=master)](https://travis-ci.org/touchsms/touchsms-PHP-API)
+[![Latest Stable Version](https://poser.pugx.org/touchsms/touchsms/version)](https://packagist.org/packages/touchsms/touchsms)
+
 ### Get started
 
 Before getting started you must have a valid [api key](https://platform.touchsms.com.au/apis/) for touchSMS.
