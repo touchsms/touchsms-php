@@ -15,6 +15,10 @@ $ composer require touchsms/touchsms
 ### Initialize the class
 
 ```php
+require_once('vendor/autoload.php');
+
+use touchSMS\touchSMS;
+
 $touchsms = new touchSMS('YOUR_API_ID', 'YOUR_API_PASSWORD');
 ```
 

@@ -5,6 +5,10 @@
 Before getting started you must have a valid [api key](https://platform.touchsms.com.au/apis/) for touchSMS.
 
 ```php
+require_once('vendor/autoload.php');
+
+use touchSMS\touchSMS;
+
 $touchsms = new touchSMS('YOUR_API_ID', 'YOUR_API_PASSWORD');
 ```
 
