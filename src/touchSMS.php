@@ -1,6 +1,6 @@
 <?php
 
-namespace touchSMS;
+namespace TouchSMS\TouchSMS;
 
 /**
  * touchSMS API class
@@ -9,7 +9,7 @@ namespace touchSMS;
  * TouchSMS Information: http://touchsms.com.au
  *
  * @author touchSMS <https://github.com/touchsms>
- * @version 1.0
+ * @version 1.3
  */
 class touchSMS {
 
