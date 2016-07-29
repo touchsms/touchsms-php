@@ -1,9 +1,9 @@
 <?php
-namespace touchSMS\tests;
+namespace TouchSMS\tests;
 
 require_once('src/touchSMS.php');
 
-use touchSMS\touchSMS;
+use TouchSMS\TouchSMS\touchSMS;
 
 class touchSMSTest extends \PHPUnit_Framework_TestCase
 {
