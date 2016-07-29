@@ -5,7 +5,6 @@
     "keywords": ["touchsms", "sms", "sms gateway", "mobile", "cellphone"],
     "homepage": "https://github.com/touchsms/touchsms-PHP-API",
     "license": "MIT",
-    "version": "1.0.0",
     "authors": [
         {
             "name": "touchSMS",
@@ -21,13 +20,13 @@
         "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
-        "psr-0": {
-            "touchSMS": "src"
+        "psr-4": {
+            "TouchSMS\\TouchSMS\\": "src"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1-dev"
+            "dev-master": "1.2-dev"
         }
     },
     "minimum-stability": "dev",
