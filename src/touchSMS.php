@@ -64,12 +64,13 @@ class touchSMS {
      *                                      way message from our shared-pool of mobile 
      *                                      numbers. Optional to send from a valid Alpha/Numeric
      *                                      source.
-     *
+     * @param string [optional]  $campaignName  Allows you to manually populate the 'Campaign Name'
+     *                                          visible in reports.
      * @return mixed
      */
 
-    public function sendMessage($message, $mobileNumber, $reference = null, $senderId = null) {
-        return $this->_makeRequest('messages', 'POST', array('message' => $message, 'number' => $mobileNumber, 'reference' => $reference, 'senderid' => $senderId));
+    public function sendMessage($message, $mobileNumber, $reference = null, $senderId = null, $campaignName = null) {
+        return $this->_makeRequest('messages', 'POST', array('message' => $message, 'number' => $mobileNumber, 'reference' => $reference, 'senderid' => $senderId, 'campaignName' => $campaignName));
     }
 
     /**
