@@ -17,18 +17,18 @@ class touchSMS {
      * The API base URL
      */
     const API_URL = 'https://platform.touchsms.com.au/rest/v1/';
-    const SANDBOX_API_URL = 'http://sandbox.touchsms.com.au/rest/v1/';
+    const SANDBOX_API_URL = 'http://www.mocky.io/v2/';
 
     /**
      * The API Unique Id
-     * 
+     *
      * @var string
      */
     private $_unqiueId;
 
     /**
      * The API Unique Password
-     * 
+     *
      * @var string
      */
     private $_uniquePassword;
@@ -41,8 +41,8 @@ class touchSMS {
     /**
      * API Keys can be generated at https://platform.touchsms.com.au/apis/
      *
-     * @param string $uniqueId          touchSMS unique id API key 
-     * @param string $uniquePassword    touchSMS unique password API key 
+     * @param string $uniqueId          touchSMS unique id API key
+     * @param string $uniquePassword    touchSMS unique password API key
      *
      * @return void
      */
@@ -61,7 +61,7 @@ class touchSMS {
      * @param string [optional]  $reference If sending a two way message replies will be pushed
      *                                      back to your system with your reference id.
      * @param string [optional]  $senderId  When null the system will send a two
-     *                                      way message from our shared-pool of mobile 
+     *                                      way message from our shared-pool of mobile
      *                                      numbers. Optional to send from a valid Alpha/Numeric
      *                                      source.
      *
@@ -109,6 +109,33 @@ class touchSMS {
 
         if ($this->_sandbox) {
             $apiUrl = self::SANDBOX_API_URL;
+            
+            if ($function === 'messages') {
+              if (
+                $this->_uniqueId === 'RGyrznuKkTYa-'
+              ) {
+                $function = '5ebdd9813100007800c5cd82';
+              } else if (
+                isset($params['number'])
+                && empty($params['number'])
+              ) {
+                $function = '5ebdd8d13100008400c5cd7e';
+              } else if (
+                isset($params['senderid'])
+                && $params['senderid'] === 'touch+SMS'
+              ) {
+                $function = '5ebdd8b53100006800c5cd7c';
+              } else if (
+                isset($params['message'])
+                && empty($params['message'])
+              ) {
+                $function = '5ebdd9003100006300c5cd80';
+              } else {
+                $function = '5ebdd6833100007800c5cd74';
+              }
+            } else if ($function === 'users') {
+              $function = '5ebdd7913100006300c5cd78';
+            }
         } else {
             $apiUrl = self::API_URL;
         }
@@ -119,7 +146,7 @@ class touchSMS {
         curl_setopt($ch, CURLOPT_URL, $apiCall);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERPWD, $this->_unqiueId.':'.$this->_uniquePassword); 
+        curl_setopt($ch, CURLOPT_USERPWD, $this->_unqiueId.':'.$this->_uniquePassword);
 
         if ('POST' === $method) {
           curl_setopt($ch, CURLOPT_POST, count($params));
@@ -174,7 +201,7 @@ class touchSMS {
                 break;
             case 403:
                 $this->_response = 'Forbidden';
-                
+
                 foreach($this->_obj->errors as $error) {
                     $response.= $error.'. ';
                 }
