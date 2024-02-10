@@ -1,2 +1,10 @@
 /vendor
 composer.lock
+
+# CS
+.php-cs-fixer.cache
+
+# tests
+phpunit.xml
+ci_generated
+.phpunit.result.cache

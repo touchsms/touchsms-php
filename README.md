@@ -1,10 +1,15 @@
-touchSMS 
+touchSMS
 =========
 
-[![Build Status](https://travis-ci.org/touchsms/touchsms-PHP-API.svg?branch=master)](https://travis-ci.org/touchsms/touchsms-PHP-API)
 [![Latest Stable Version](https://poser.pugx.org/touchsms/touchsms/version)](https://packagist.org/packages/touchsms/touchsms)
 
-The offical helper library to send SMS with [touchSMS](https://touchsms.com.au)
+PHP SDK for [touchSMS](https://touchsms.com.au). 
+
+This SDK is generated automatically with JanePHP. It provides a full object-oriented interface for the endpoints, requests and responses.
+
+You can explore the `\TouchSms\ApiClient\Api` namespace to see the generated classes.
+
+Currently, only a portion of the API has been converted to openAPI, and thus this client. If you would like support for a method, please open an issue and our team will address it.
 
 ## Installation
 
@@ -12,56 +17,61 @@ The offical helper library to send SMS with [touchSMS](https://touchsms.com.au)
 
 ## Usage
 
-    require_once('vendor/autoload.php');
+Use the `ClientFactory` to create an API client.
 
-    use touchSMS\touchSMS;
+```php
+// access token & token id can be generated at https://app.touchsms.com.au/settings/api
+$client = \TouchSms\ApiClient\ClientFactory::create('ACCESS_TOKEN', 'TOKEN_ID');
 
-    $touchSms = new touchSMS('YOUR_API_ID', 'YOUR_API_PASSWORD');
-
-    // access token & token id can be generated at https://platform.touchsms.com.au/apis/
-
+$res = $client->getAccount();
+```
+ 
 ### Send SMS
-    
-    $response = $touchSms->sendMessage('hello world', '61491570156'); 
-    
-    print_r($response);
+
+```php
+$client = ClientFactory::create($_ENV['ACCESS_TOKEN'], $_ENV['TOKEN_ID']);
+
+$res = $client->sendMessages(new SendMessageBody([
+    'messages' => [ // Up to 1000 messages supported
+        new OutboundMessage([
+            'to' => '61491578888', // Test number
+            'from' => 'SHARED_NUMBER',
+            'body' => 'Text',
+        ]),
+    ],
+]));
+
+var_dump($res->getData()->getMessages()); // Successful messages, \TouchSms\ApiClient\Api\Model\OutboundMessageResponse
+var_dump($res->getData()->getErrors()); // Messages with errors, \TouchSms\ApiClient\Api\Model\OutboundMessageError
+```
 
 #### Output
 
-    stdClass Object
-    (
-        [code] => 200
-        [errors] => 0
-        [message] => 
-    )
+```php
+// array of OutboundMessageResponse objects
+$message = $res->getData()->getMessages()[0];
+$message->getTo();
+$message->getMeta()->getParts();
+$message->getMeta()->getCost();
+//etc
+```
 
 ### View User Details
 
-    $response = $touchSms->checkBalance();
-
-    print_r($response);
+```php
+$res = $client->getAccount();
+```
 
 #### Output
 
-    stdClass Object
-    (
-        [username] => john.doe@sandbox
-        [credits] => 5000
-        [senderid] => sandboxAPI
-        [mobile] => 61491570156
-        [code] => 200
-    )
+```php
+var_dump($res->getData()); // object, \TouchSms\ApiClient\Api\Model\AccountInformation
+var_dump(
+    $res->getData()->getEmail(), // user
+    $res->getData()->getCredits() // credit balance
+);
+```
 
 ## Examples
 
 Examples can be found in `examples` directory.
-
-    php examples/sendsms.php
-    php examples/users.php
-
-## Tests
-  Tests run through a Sandbox URL with Sandbox credentials. 
-
-  You can update the tests with your own credentials and remove the final `true` parameter on the touchSMS constructor.
-
-    phpunit

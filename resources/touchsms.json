@@ -1,0 +1,495 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "touchSMS V2 Documentation",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://app.touchsms.com.au/api"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    },
+    "schemas": {
+      "OutboundMessage": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string",
+            "example": "+61412345678",
+            "description": "Destination phone number. Ideally in international format with the leading +, ie 61412345678. Local formatting will be parsed but is not recommended."
+          },
+          "from": {
+            "type": "string",
+            "example": "SHARED_NUMBER",
+            "description": "Sender ID, either a a Dedicated Number, Verified Phone Number, Verified Alphanumeric Sender ID. When using numbers, use E164 format. To send using the shared pool, use the string \"SHARED_NUMBER\""
+          },
+          "body": {
+            "type": "string",
+            "description": "Message content. Unicode is accepted."
+          },
+          "campaign": {
+            "type": "string",
+            "description": "Custom campaign name. Shown in reports."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Custom metadata to associate with the message. Will be returned with delivery receipts and inbound messages that are replies."
+          },
+          "media": {
+            "type": "object",
+            "description": "Supply a single image URL to send message as an MMS. See MMS section above."
+          },
+          "reference": {
+            "type": "string",
+            "description": "Custom reporting reference. Available in exported reports and delivery receipts."
+          },
+          "date": {
+            "type": "string",
+            "description": "Schedule a message at a specific time. Must be in ISO8601 format in UTC timezone. Eg 2021-02-17T22:52:07Z"
+          }
+        },
+        "required": [
+          "to",
+          "from",
+          "body"
+        ]
+      },
+      "OutboundMessageResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "VALID"
+          },
+          "to": {
+            "type": "string",
+            "example": "+61412345678",
+            "description": "Destination phone number. Ideally in international format with the leading +, ie 61412345678. Local formatting will be parsed but is not recommended."
+          },
+          "from": {
+            "type": "string",
+            "example": "SHARED_NUMBER",
+            "description": "Sender ID, either a a Dedicated Number, Verified Phone Number, Verified Alphanumeric Sender ID. When using numbers, use E164 format. To send using the shared pool, use the string \"SHARED_NUMBER\""
+          },
+          "body": {
+            "type": "string",
+            "description": "Message content. Unicode is accepted."
+          },
+          "campaign": {
+            "type": "string",
+            "description": "Custom campaign name. Shown in reports."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Custom metadata to associate with the message. Will be returned with delivery receipts and inbound messages that are replies."
+          },
+          "media": {
+            "type": "object",
+            "description": "Supply a single image URL to send message as an MMS. See MMS section above."
+          },
+          "reference": {
+            "type": "string",
+            "description": "Custom reporting reference. Available in exported reports and delivery receipts."
+          },
+          "date": {
+            "type": "string",
+            "description": "Schedule a message at a specific time. Must be in ISO8601 format in UTC timezone. Eg 2021-02-17T22:52:07Z"
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "size": {
+                "type": "integer",
+                "example": 55,
+                "description": "Length of message in characters in determined encoding"
+              },
+              "parts": {
+                "type": "integer",
+                "example": 1,
+                "description": "Length of message in SMS parts"
+              },
+              "is_unicode": {
+                "type": "boolean",
+                "example": false,
+                "description": "Is the message unicode or GSM"
+              },
+              "cost": {
+                "type": "number",
+                "example": 1,
+                "description": "Length of message in Billing units"
+              },
+              "country": {
+                "type": "string",
+                "example": "AU",
+                "description": "ISO country code of the number"
+              }
+            }
+          }
+        },
+        "required": [
+          "to",
+          "from",
+          "body",
+          "meta"
+        ]
+      },
+      "OutboundMessageError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR"
+          },
+          "to": {
+            "type": "string",
+            "example": "+61412345678",
+            "description": "Destination phone number. Ideally in international format with the leading +, ie 61412345678. Local formatting will be parsed but is not recommended."
+          },
+          "from": {
+            "type": "string",
+            "example": "SHARED_NUMBER",
+            "description": "Sender ID, either a a Dedicated Number, Verified Phone Number, Verified Alphanumeric Sender ID. When using numbers, use E164 format. To send using the shared pool, use the string \"SHARED_NUMBER\""
+          },
+          "body": {
+            "type": "string",
+            "description": "Message content. Unicode is accepted."
+          },
+          "campaign": {
+            "type": "string",
+            "description": "Custom campaign name. Shown in reports."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Custom metadata to associate with the message. Will be returned with delivery receipts and inbound messages that are replies."
+          },
+          "media": {
+            "type": "object",
+            "description": "Supply a single image URL to send message as an MMS. See MMS section above."
+          },
+          "reference": {
+            "type": "string",
+            "description": "Custom reporting reference. Available in exported reports and delivery receipts."
+          },
+          "date": {
+            "type": "string",
+            "description": "Schedule a message at a specific time. Must be in ISO8601 format in UTC timezone. Eg 2021-02-17T22:52:07Z"
+          },
+          "error_code": {
+            "type": "string",
+            "description": "Error code for failure reason"
+          },
+          "error_help": {
+            "type": "string",
+            "description": "Human readable error reason description"
+          }
+        },
+        "required": [
+          "to",
+          "from",
+          "body",
+          "error_code"
+        ]
+      },
+      "SendMessageBody": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OutboundMessage"
+            }
+          }
+        }
+      },
+      "AccountInformation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "credits": {
+            "type": "number"
+          },
+          "settings": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Messages"
+    },
+    {
+      "name": "Account"
+    }
+  ],
+  "paths": {
+    "/v2/sms": {
+      "post": {
+        "operationId": "sendMessages",
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Send SMS / MMS",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendMessageBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "messages": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OutboundMessageResponse"
+                          }
+                        },
+                        "errors": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OutboundMessageError"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "meta": {
+                      "totalParts": 1,
+                      "totalMessages": 1,
+                      "totalCredits": 1,
+                      "creditBalance": 1000,
+                      "hasSufficientCredits": true
+                    },
+                    "messages": [
+                      {
+                        "status": "VALID",
+                        "to": "61476647930",
+                        "from": "ALPHASENDER",
+                        "body": "hello world",
+                        "campaign": "API Campaign (2021-07-05)",
+                        "reference": null,
+                        "date": null,
+                        "meta": {
+                          "size": 11,
+                          "parts": 1,
+                          "is_unicode": false,
+                          "cost": 1,
+                          "country": "AU"
+                        }
+                      }
+                    ],
+                    "errors": [
+                      {
+                        "status": "ERROR",
+                        "error_code": "INVALID_RECIPIENT",
+                        "to": "04123",
+                        "from": "61412345678",
+                        "body": "invalid number",
+                        "campaign": null,
+                        "reference": null,
+                        "date": null
+                      },
+                      {
+                        "status": "ERROR",
+                        "error_code": "INVALID_SENDER_ID",
+                        "to": "61476647930",
+                        "from": "TOOOOOOOOOLONG",
+                        "body": "invalid sender",
+                        "campaign": null,
+                        "reference": null,
+                        "date": null
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/sms/dry": {
+      "post": {
+        "operationId": "sendMessagesDry",
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Dry Send SMS / MMS",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendMessageBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "messages": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OutboundMessageResponse"
+                          }
+                        },
+                        "errors": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/OutboundMessageError"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "meta": {
+                      "totalParts": 1,
+                      "totalMessages": 1,
+                      "totalCredits": 1,
+                      "creditBalance": 1000,
+                      "hasSufficientCredits": true
+                    },
+                    "messages": [
+                      {
+                        "status": "VALID",
+                        "to": "61476647930",
+                        "from": "ALPHASENDER",
+                        "body": "hello world",
+                        "campaign": "API Campaign (2021-07-05)",
+                        "reference": null,
+                        "date": null,
+                        "meta": {
+                          "size": 11,
+                          "parts": 1,
+                          "is_unicode": false,
+                          "cost": 1,
+                          "country": "AU"
+                        }
+                      }
+                    ],
+                    "errors": [
+                      {
+                        "status": "ERROR",
+                        "error_code": "INVALID_RECIPIENT",
+                        "to": "04123",
+                        "from": "61412345678",
+                        "body": "invalid number",
+                        "campaign": null,
+                        "reference": null,
+                        "date": null
+                      },
+                      {
+                        "status": "ERROR",
+                        "error_code": "INVALID_SENDER_ID",
+                        "to": "61476647930",
+                        "from": "TOOOOOOOOOLONG",
+                        "body": "invalid sender",
+                        "campaign": null,
+                        "reference": null,
+                        "date": null
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/account": {
+      "get": {
+        "operationId": "getAccount",
+        "tags": [
+          "Account"
+        ],
+        "summary": "Get Account",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/AccountInformation"
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "id": 1,
+                    "firstname": "test",
+                    "surname": "test",
+                    "email": "test@test.com",
+                    "mobile": "61412345678",
+                    "credits": 24446,
+                    "settings": {
+                      "timezone": "Australia/Sydney",
+                      "allow_contact_duplicates": false,
+                      "allow_sms_duplicates": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
