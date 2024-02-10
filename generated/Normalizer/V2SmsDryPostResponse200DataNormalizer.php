@@ -77,20 +77,16 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
         public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
         {
             $data = [];
-            if ($object->isInitialized('messages') && null !== $object->getMessages()) {
-                $values = [];
-                foreach ($object->getMessages() as $value) {
-                    $values[] = $this->normalizer->normalize($value, 'json', $context);
-                }
-                $data['messages'] = $values;
+            $values = [];
+            foreach ($object->getMessages() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            if ($object->isInitialized('errors') && null !== $object->getErrors()) {
-                $values_1 = [];
-                foreach ($object->getErrors() as $value_1) {
-                    $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
-                }
-                $data['errors'] = $values_1;
+            $data['messages'] = $values;
+            $values_1 = [];
+            foreach ($object->getErrors() as $value_1) {
+                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
+            $data['errors'] = $values_1;
             foreach ($object as $key => $value_2) {
                 if (preg_match('/.*/', (string) $key)) {
                     $data[$key] = $value_2;
@@ -170,20 +166,16 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
         public function normalize($object, $format = null, array $context = [])
         {
             $data = [];
-            if ($object->isInitialized('messages') && null !== $object->getMessages()) {
-                $values = [];
-                foreach ($object->getMessages() as $value) {
-                    $values[] = $this->normalizer->normalize($value, 'json', $context);
-                }
-                $data['messages'] = $values;
+            $values = [];
+            foreach ($object->getMessages() as $value) {
+                $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
-            if ($object->isInitialized('errors') && null !== $object->getErrors()) {
-                $values_1 = [];
-                foreach ($object->getErrors() as $value_1) {
-                    $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
-                }
-                $data['errors'] = $values_1;
+            $data['messages'] = $values;
+            $values_1 = [];
+            foreach ($object->getErrors() as $value_1) {
+                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
+            $data['errors'] = $values_1;
             foreach ($object as $key => $value_2) {
                 if (preg_match('/.*/', (string) $key)) {
                     $data[$key] = $value_2;

@@ -199,6 +199,9 @@
       },
       "SendMessageBody": {
         "type": "object",
+        "required": [
+          "messages"
+        ],
         "properties": {
           "messages": {
             "type": "array",
@@ -276,6 +279,10 @@
                   "properties": {
                     "data": {
                       "type": "object",
+                      "required": [
+                        "messages",
+                        "errors"
+                      ],
                       "properties": {
                         "messages": {
                           "type": "array",
@@ -376,6 +383,10 @@
                   "properties": {
                     "data": {
                       "type": "object",
+                      "required": [
+                        "messages",
+                        "errors"
+                      ],
                       "properties": {
                         "messages": {
                           "type": "array",
@@ -464,6 +475,9 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "data"
+                  ],
                   "properties": {
                     "data": {
                       "$ref": "#/components/schemas/AccountInformation"

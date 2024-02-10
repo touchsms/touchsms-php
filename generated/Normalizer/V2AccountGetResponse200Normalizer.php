@@ -63,9 +63,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
         public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
         {
             $data = [];
-            if ($object->isInitialized('data') && null !== $object->getData()) {
-                $data['data'] = $this->normalizer->normalize($object->getData(), 'json', $context);
-            }
+            $data['data'] = $this->normalizer->normalize($object->getData(), 'json', $context);
             foreach ($object as $key => $value) {
                 if (preg_match('/.*/', (string) $key)) {
                     $data[$key] = $value;
@@ -131,9 +129,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
         public function normalize($object, $format = null, array $context = [])
         {
             $data = [];
-            if ($object->isInitialized('data') && null !== $object->getData()) {
-                $data['data'] = $this->normalizer->normalize($object->getData(), 'json', $context);
-            }
+            $data['data'] = $this->normalizer->normalize($object->getData(), 'json', $context);
             foreach ($object as $key => $value) {
                 if (preg_match('/.*/', (string) $key)) {
                     $data[$key] = $value;
